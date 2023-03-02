@@ -1,14 +1,19 @@
-import React from 'react';
+import { Header, Info, Footer, Form } from './component';
+import { appConstants } from './constants';
+import { layout } from './style';
 
-interface IAppProps {
-}
+const {currentMonthAndYear, owner} = appConstants;
 
-const  App = (props: IAppProps)  => {
+const  App = (): JSX.Element  => {
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-red-200">
-      <h1 className="text-3xl font-bold text-blue-600">
-        Works now
-      </h1>
+    <div className='flex flex-col justify-center items-center w-full'>
+      <Header monthAndYear={currentMonthAndYear}/>
+
+      <div className={layout.sectionItems}>
+        <Form />
+        <Info />
+      </div>
+      <Footer owner={owner} />
     </div>
   );
 }
