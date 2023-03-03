@@ -1,17 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
 
+interface Props { children: React.ReactNode; }
 
-interface Props {
-  children: React.ReactNode;
-}
 type State = {
   showMinute: boolean;
 };
-
 type Action = { type: 'SHOW_MINUTE'} | {type : 'HIDE_MINUTE'};
-
 type Dispatch = (action: Action) => void;
-
 type StateContextValue = {
   state: State;
   dispatch: Dispatch;
