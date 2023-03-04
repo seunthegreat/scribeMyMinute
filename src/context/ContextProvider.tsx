@@ -1,48 +1,76 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
+import { minuteReducer } from './Reducers';
 
-interface Props { children: React.ReactNode; }
+export interface Props {
+  children: React.ReactNode;
+}
 
-type State = {
-  showMinute: boolean;
+export type State = {
+  minute: {
+    showMinute: boolean;
+  };
+  appInfo: {
+    appName: string;
+    owner: string;
+  };
 };
-type Action = { type: 'SHOW_MINUTE'} | {type : 'HIDE_MINUTE'};
-type Dispatch = (action: Action) => void;
-type StateContextValue = {
-  state: State;
-  dispatch: Dispatch;
+
+export type StateContextValue = {
+  minute: {
+    showMinute: boolean;
+    generateMinute: () => void;
+    createNewMinute: () => void;
+  };
+  appInfo: {
+    appName: string;
+    owner: string;
+  };
 };
 
-const StateContext = createContext<StateContextValue | undefined >(undefined);
+export const initialState: State = {
+  minute: {
+    showMinute: false,
+  },
+  appInfo: {
+    appName: 'Scribe My Minute',
+    owner: 'Seun Abilawon',
+  },
+};
+
+export const StateContext = createContext<StateContextValue | undefined>(undefined);
 
 export const StateProvider: React.FC<Props> = ({ children }) => {
-  const [state, setState] = useState<State>({ showMinute: false})
+  const [minuteState, dispatchMinute] = useReducer(minuteReducer, initialState.minute);
 
-  const dispatch = (action: Action) => {
-    switch (action.type) {
-        case 'SHOW_MINUTE':
-          setState({ ...state, showMinute: true });
-          break;
-        case 'HIDE_MINUTE':
-          setState({ ...state, showMinute: false });
-          break;
-        default:
-          throw new Error(`Unhandled action type: ${action}`);
-      }
-  }
+  //-----------------------------------Minute dispatch-----------------------------------------------//
+
+  const generateMinute = (): void => dispatchMinute({ type: 'SHOW_MINUTE' });
+  const createNewMinute = (): void => dispatchMinute({type: 'HIDE_MINUTE'});
+
+  //-----------------------------------------Ends----------------------------------------------------//
 
   return (
-    <StateContext.Provider value={{ state, dispatch }}>
+    <StateContext.Provider
+      value={{
+        //--Minute State--//
+        minute: {
+          showMinute: minuteState.showMinute, generateMinute, createNewMinute
+        },
+        //--App Information--//
+        appInfo: initialState.appInfo, // Use the initialState value instead
+      }}
+    >
       {children}
     </StateContext.Provider>
   );
-}
+};
 
 export function useStateContext(): StateContextValue {
   const context = useContext(StateContext);
-  
+
   if (!context) {
     throw new Error('useStateContext must be used within a StateProvider');
   }
-  
+
   return context;
 }

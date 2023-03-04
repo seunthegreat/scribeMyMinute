@@ -1,0 +1,1 @@
+export { default as minuteReducer } from "./minuteReducer"

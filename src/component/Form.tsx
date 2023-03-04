@@ -3,7 +3,8 @@ import { useStateContext } from '../context/ContextProvider';
 import { Input, Button } from './';
 
 const Form: React.FC = (): JSX.Element => {
-  const { dispatch } = useStateContext();
+  const { minute } = useStateContext();
+  const { generateMinute } = minute;
  
   return (
     <div className="p-10 border m-5 rounded-[5px] ">
@@ -20,7 +21,9 @@ const Form: React.FC = (): JSX.Element => {
         <div className=''>
           <Input label="Comments" type={'text-area'} sx="h-20" />
         </div>
-        <Button title={"Generate"} onClick={() => dispatch({type: 'SHOW_MINUTE'})}/>
+        <Button title={"Generate"} 
+          onClick={generateMinute}
+        />
       </div>
     </div>
   );
