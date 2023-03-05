@@ -31,7 +31,7 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, type, sx }) => {
 
       {type === 'text-area' && (
         <div className="flex flex-col mb-4">
-          <p className={`${text.body} ${isFocused ? 'text-[#343995]' : ''}`}>{label}</p>
+          <p className={`${text.body} ${isFocused ? 'text-[#343995]' : ''} mb-2`}>{label}</p>
           <textarea
             className={`border-b-[1px] border-gray-400 py-2 outline-none focus:border-blue-500 
             transition-colors ${isFocused ? 'border-[#343995] border rounded-[5px] px-2' : ''} resize-y ${sx} text-sm`}

@@ -12,8 +12,6 @@ const Demo =  (): JSX.Element  => {
   const {owner, appName} = appInfo;
   const { showMinute, createNewMinute } = minute;
 
-  console.log(minute)
-
   return (
     <div className='flex flex-col justify-center items-center w-full'>
       <Header appName={appName} monthAndYear={currentMonthAndYear}/>

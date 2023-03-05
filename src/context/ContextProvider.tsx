@@ -5,6 +5,7 @@ export interface Props {
   children: React.ReactNode;
 }
 
+//--Application State type definition--//
 export type State = {
   minute: {
     showMinute: boolean;
@@ -13,6 +14,17 @@ export type State = {
     appName: string;
     owner: string;
   };
+};
+
+//--Initial State of application--//
+export const initialState: State = {
+  minute: {
+    showMinute: false,
+  },
+  appInfo: {
+    appName: 'Minute Scribe',
+    owner: 'Seun Abilawon',
+  },
 };
 
 export type StateContextValue = {
@@ -27,15 +39,6 @@ export type StateContextValue = {
   };
 };
 
-export const initialState: State = {
-  minute: {
-    showMinute: false,
-  },
-  appInfo: {
-    appName: 'Scribe My Minute',
-    owner: 'Seun Abilawon',
-  },
-};
 
 export const StateContext = createContext<StateContextValue | undefined>(undefined);
 
@@ -44,8 +47,8 @@ export const StateProvider: React.FC<Props> = ({ children }) => {
 
   //-----------------------------------Minute dispatch-----------------------------------------------//
 
-  const generateMinute = (): void => dispatchMinute({ type: 'SHOW_MINUTE' });
-  const createNewMinute = (): void => dispatchMinute({type: 'HIDE_MINUTE'});
+  const generateMinute = (): void => dispatchMinute({ type: 'GENERATE_MINUTE' });
+  const createNewMinute = (): void => dispatchMinute({type: 'CREATE_NEW_MINUTE'});
 
   //-----------------------------------------Ends----------------------------------------------------//
 
