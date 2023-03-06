@@ -5,18 +5,21 @@ import { Input, Button } from './';
 const Form: React.FC = (): JSX.Element => {
   const { minute } = useStateContext();
   const { generateMinute } = minute;
+
+  const [date, setDate] = useState(new Date());
  
   return (
     <div className="sm:p-10 p-5 border m-5 rounded-[5px] flex flex-col justify-between ">
       <div className='grid gap-10'>
-        <div className='grid sm:grid-cols-3 grid-cols-1 gap-4'>
-          <Input label={"Date"} />
-          <Input label={"Location"} />
-          <Input label={"Attendees"} />
+        <div className='grid sm:grid-cols-3 grid-cols-1 gap-4 items-end'>
+          <Input label={"Date"} type={'date-picker'} dateValue={date} 
+            onChangeDate={(newDate) => setDate(newDate)}/>
+          <Input label={"Location"} type="select" />
+          <Input label={"Attendees"} type="tag" />
         </div>
 
         <div className=''>
-          <Input label={"Agenda"} />
+          <Input label={"Agenda"}/>
         </div>
         <div className=''>
           <Input label="Summary" type={'text-area'} sx={`h-20`} />
