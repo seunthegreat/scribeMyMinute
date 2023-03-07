@@ -1,19 +1,25 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import { formReducer, minuteReducer } from './Reducers';
 import { LocationType } from '../component/Input';
+import { Tag } from '../component/Input';
 
 export interface Props {
   children: React.ReactNode;
+}
+
+export interface tagInput {
+  id: number;
+  name: string;
 }
 
 export type FormType = {
   agenda?: string | '';
   date?: Date | '';
   location?: string | '';
-  attendees?: string[];
+  attendees?: any[];
   summary?: string;
-  decisionsMade?: string[];
-  actions?: string[];
+  decisionsMade?: any[];
+  actions?: any[];
 };
 
 //--Application State type definition--//
@@ -63,8 +69,11 @@ export type StateContextValue = {
     getUserInputs : () => FormType;
     updateInput: (name: keyof FormType, value: any) => void;
     updateSelect: (name: keyof FormType, value: any) => void;
+    updateTag: (name: keyof FormType | undefined, value: tagInput[]) => void;
   };
 };
+
+
 
 
 export const StateContext = createContext<StateContextValue | undefined>(undefined);
@@ -88,6 +97,9 @@ export const StateProvider: React.FC<Props> = ({ children }) => {
   };
   const updateSelect = (name: keyof FormType, value: string) => {
     dispatchForm({ type: 'UPDATE_FORM_SELECT', payload: {name, value}})
+  }
+  const updateTag = (name: keyof FormType | undefined, value: tagInput[]) => {
+    dispatchForm({ type: 'UPDATE_FORM_TAG', payload: {name, value}})
   }
   //-----------------------------------------Ends--------------------------------------------------//
   
@@ -117,6 +129,7 @@ export const StateProvider: React.FC<Props> = ({ children }) => {
           getUserInputs,
           updateInput,
           updateSelect,
+          updateTag,
         }
       }}
     >

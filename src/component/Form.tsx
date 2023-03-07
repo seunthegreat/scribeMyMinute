@@ -6,11 +6,12 @@ import { LocationType } from './Input';
 
 const Form: React.FC = (): JSX.Element => {
   const { minute, form } = useStateContext();
+  const { attendees, actions, decisionsMade } = form.inputs;
   const { generateMinute } = minute;
-  const { getUserInputs, updateInput, updateSelect} = form;
+  const { getUserInputs, updateInput, updateSelect, updateTag} = form;
 
   const [date, setDate] = useState(new Date());
-  const [location, setLocation] = useState<LocationType | null>(null);
+  const [location, setLocation] = useState<string | undefined>('');
 
   useEffect(() => {
    // console.log(getUserInputs)
@@ -22,7 +23,7 @@ const Form: React.FC = (): JSX.Element => {
   };
 
   const handleSelectLocation = (location: LocationType | null) => {
-    setLocation(location);
+   // setLocation(location?.label);
     updateSelect("location", location?.label)
   }
   //console.log(getUserInputs());
@@ -39,7 +40,7 @@ const Form: React.FC = (): JSX.Element => {
           <Input label={"Date"} type={'date-picker'} dateValue={date} 
             onChangeDate={(newDate) => setDate(newDate)}/>
           <Input label={"Location"} type="select" name='location' value={location} onChangeSelect={handleSelectLocation} />
-          <Input label={"Attendees"} type="tag" />
+          <Input label={"Attendees"} type="tag" name="attendees" tags={attendees} />
         </div>
 
         <div className=''>
@@ -47,8 +48,8 @@ const Form: React.FC = (): JSX.Element => {
         </div>
 
         <div className='grid sm:grid-cols-2 grid-cols-1 gap-4'>
-          <Input label={`Decision(s) Made`} type="tag" />
-          <Input label={"Add Action"} type="tag" />
+          <Input label={`Decision(s) Made`} type="tag" name="decisionsMade" tags={decisionsMade} />
+          <Input label={"Add Action"} type="tag" name="actions" tags={actions} />
         </div>
       </div>
       <Button title={"Generate"}  onClick={() => console.log(getUserInputs())}/>

@@ -5,12 +5,13 @@ import 'react-datetime-picker/dist/DateTimePicker.css';
 import Select from 'react-select';
 
 import { MdOutlineAddCircleOutline } from "react-icons/md"
-import { useStateContext } from '../context/ContextProvider';
+import { tagInput, useStateContext } from '../context/ContextProvider';
 
 interface InputProps {
   label: string;
   name?: string;
   value?: string;
+  tags?: Tag[];
   onChange?: (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
   onChangeDate?: (date: Date) => void;
   onChangeSelect? : (location: LocationType | null) => void;
@@ -24,7 +25,7 @@ export type LocationType = {
   label: string;
 };
 
-interface Attendee {
+export interface Tag {
   id: number;
   name: string;
 };
@@ -36,13 +37,17 @@ const locations: LocationType[] = [
   { value: 'online(others)', label: 'Online(others)' },
 ];
 
-const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dateValue, onChangeSelect, type, sx, name }) => {
+const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dateValue, onChangeSelect, type, sx, name, tags }) => {
+  //--Context state--//
   const {form} = useStateContext();
+  const { updateTag } = form;
   const {agenda, date, location,  decisionsMade, summary } = form.inputs;
+
+  //--component state--//
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [selectedLocation, setSelectedLocation] = useState<LocationType | null>(null);
   const [tagValue, setTagValue] = useState('');
-  const [attendees, setAttendees] = useState<Attendee[]>([]);
+  //const [tags, setTags] = useState<Tag[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTagValue(event.target.value);
@@ -56,13 +61,26 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
    // console.log(location);
   },[])
 
-  const handleAddAttendee = () => {
+  const handleAddTag = () => {
     if (tagValue.trim()) {
-      const newAttendee: Attendee = {
+      const newTag: Tag = {
         id: Date.now(),
         name: tagValue.trim(),
       };
-      setAttendees([...attendees, newAttendee]);
+      
+      if (name == 'attendees'){
+        const updatedAttendees = tags ? [...tags, newTag] : [newTag];
+        updateTag('attendees', updatedAttendees);
+      }
+      if (name == 'decisionsMade'){
+        const updatedAttendees = tags ? [...tags, newTag] : [newTag];
+        updateTag('decisionsMade', updatedAttendees);
+      }
+      if (name == 'actions'){
+        const updatedAttendees = tags ? [...tags, newTag] : [newTag];
+        updateTag('actions', updatedAttendees);
+      }
+
       setTagValue('');
     }
   };
@@ -87,10 +105,10 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
 
       {type === 'tag' && (
         <div className="flex flex-col mb-4">
-          <p className={`${text.body} ${isFocused ? 'text-[#343995]' : ''}`}>{label} {`: ${attendees.length}`}</p>
+          <p className={`${text.body} ${isFocused ? 'text-[#343995]' : ''}`}>{label} {`: ${tags && tags.length}`}</p>
           <div className={`flex flex-row justify-between border-b-[1px] ${isFocused ? 'border-[#343995]' : 'border-gray-400'}`}>
             <div className='flex flex-row'>
-              {attendees.map((item, index) => (
+              {tags && tags.map((item, index) => (
                 <div key={index} className='bg-slate-200 p-1 px-2 m-2 mr-0 rounded-[3px]'>
                   <p className={`${text.body}`}>{item.name}</p>
                 </div>
@@ -106,7 +124,7 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
                 onBlur={() => setIsFocused(false)}
               />
             </div>
-            <button className='hover:scale-110 text-[#343995]' onClick={handleAddAttendee}>
+            <button className='hover:scale-110 text-[#343995]' onClick={handleAddTag}>
               <MdOutlineAddCircleOutline />
             </button>
           </div>
