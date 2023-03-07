@@ -10,6 +10,7 @@ const Form: React.FC = (): JSX.Element => {
   const { getUserInputs, updateInput, updateSelect} = form;
 
   const [date, setDate] = useState(new Date());
+  const [location, setLocation] = useState<LocationType | null>(null);
 
   useEffect(() => {
    // console.log(getUserInputs)
@@ -21,6 +22,7 @@ const Form: React.FC = (): JSX.Element => {
   };
 
   const handleSelectLocation = (location: LocationType | null) => {
+    setLocation(location);
     updateSelect("location", location?.label)
   }
   //console.log(getUserInputs());
@@ -36,7 +38,7 @@ const Form: React.FC = (): JSX.Element => {
       <div className='grid sm:grid-cols-3 grid-cols-1 gap-10 sm:gap-4 items-end'>
           <Input label={"Date"} type={'date-picker'} dateValue={date} 
             onChangeDate={(newDate) => setDate(newDate)}/>
-          <Input label={"Location"} type="select" name='location' onChangeSelect={handleSelectLocation} />
+          <Input label={"Location"} type="select" name='location' value={location} onChangeSelect={handleSelectLocation} />
           <Input label={"Attendees"} type="tag" />
         </div>
 

@@ -5,6 +5,7 @@ import 'react-datetime-picker/dist/DateTimePicker.css';
 import Select from 'react-select';
 
 import { MdOutlineAddCircleOutline } from "react-icons/md"
+import { useStateContext } from '../context/ContextProvider';
 
 interface InputProps {
   label: string;
@@ -36,6 +37,8 @@ const locations: LocationType[] = [
 ];
 
 const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dateValue, onChangeSelect, type, sx, name }) => {
+  const {form} = useStateContext();
+  const {agenda, date, location,  decisionsMade, summary } = form.inputs;
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [selectedLocation, setSelectedLocation] = useState<LocationType | null>(null);
   const [tagValue, setTagValue] = useState('');
@@ -44,6 +47,14 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTagValue(event.target.value);
   };
+
+  const getLocationByLabel = (label: string | undefined, locations: LocationType[] ): LocationType | undefined => {
+    return locations.find((location) => location.label === label);
+  }
+
+  useEffect(() => {
+   // console.log(location);
+  },[])
 
   const handleAddAttendee = () => {
     if (tagValue.trim()) {
@@ -55,11 +66,6 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
       setTagValue('');
     }
   };
-
-  const handleSelect = (location: LocationType | null) => {
-    setSelectedLocation(location)
-    console.log(location)
-  }
   
   return (
     <>
@@ -139,8 +145,7 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
         <div className="flex flex-col mb-4">
           <p className={`${text.body} ${isFocused ? 'text-[#343995]' : ''}`}>{label}</p>
           <Select
-            value={selectedLocation}
-            //onChange={handleSelect}
+            value={getLocationByLabel(location, locations)}
             onChange={onChangeSelect}
             options={locations}
             className="text-sm border-b-[1px] border-gray-400 py-[3.5px]"
