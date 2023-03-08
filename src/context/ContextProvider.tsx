@@ -57,7 +57,7 @@ export const initialState: State = {
 export type StateContextValue = {
   minute: {
     showMinute: boolean;
-    generateMinute: () => void;
+    generateMinute: (form: FormType) => void;
     createNewMinute: () => void;
   };
   appInfo: {
@@ -81,7 +81,7 @@ export const StateContext = createContext<StateContextValue | undefined>(undefin
 export const StateProvider: React.FC<Props> = ({ children }) => {
   //--------------------------------Minute State + Dispatch----------------------------------------//
   const [minuteState, dispatchMinute] = useReducer(minuteReducer, initialState.minute); 
-  const generateMinute = (): void => dispatchMinute({ type: 'GENERATE_MINUTE' });
+  const generateMinute = (form: FormType) => dispatchMinute({ type: 'GENERATE_MINUTE', payload: {form} });
   const createNewMinute = (): void => dispatchMinute({type: 'CREATE_NEW_MINUTE'});
   //-----------------------------------------Ends--------------------------------------------------//
 
@@ -147,3 +147,4 @@ export function useStateContext(): StateContextValue {
 
   return context;
 }
+
