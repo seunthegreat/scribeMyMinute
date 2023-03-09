@@ -48,7 +48,7 @@ const Form: React.FC = (): JSX.Element => {
           
           <Input label={"Location"} type="select" name='location' value={location} onChangeSelect={handleSelectLocation} />
           <div className='col-span-2'>
-            <Input label={"Attendees"} type="tag" name="attendees" tags={attendees} />
+            <Input label={"Attendees"} type="tag" name="attendees"  position="in-line" tags={attendees} />
           </div>
         </div>
 
@@ -56,9 +56,8 @@ const Form: React.FC = (): JSX.Element => {
           <Input label="Summary" type={'text-area'} sx={`h-20`} name="summary" onChange={handleInputChange}/>
         </div>
 
-        <div className='grid sm:grid-cols-2 grid-cols-1 gap-4'>
-          <Input label={`Decision(s) Made`} type="tag" name="decisionsMade" tags={decisionsMade} />
-          <Input label={"Add Action"} type="tag" name="actions" tags={actions} />
+        <div className=''>
+          <Input label={`Decision(s) Made`} type="tag" position="bottom" name="decisionsMade" tags={decisionsMade} />
         </div>
       </div>
       <Button title={"Generate"}  onClick={handleGenerate}/>

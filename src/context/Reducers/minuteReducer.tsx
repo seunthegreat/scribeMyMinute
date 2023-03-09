@@ -1,5 +1,4 @@
 import { Reducer } from 'react';
-import { useStateContext } from '../ContextProvider';
 
 interface MinuteState {
   showMinute: boolean;

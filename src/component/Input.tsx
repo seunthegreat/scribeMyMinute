@@ -17,6 +17,7 @@ interface InputProps {
   onChangeSelect? : (location: LocationType | null) => void;
   dateValue?: Date;
   type?: string;
+  position?: string;
   sx?: string;
 };
 
@@ -37,7 +38,8 @@ const locations: LocationType[] = [
   { value: 'online(others)', label: 'Online(others)' },
 ];
 
-const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dateValue, onChangeSelect, type, sx, name, tags }) => {
+const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dateValue, 
+  onChangeSelect, type, sx, name, tags, position }) => {
   //--Context state--//
   const {form} = useStateContext();
   const { updateTag } = form;
@@ -107,9 +109,9 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
         <div className="flex flex-col mb-4">
           <p className={`${text.body} ${isFocused ? 'text-[#343995]' : ''}`}>{label} {`: ${tags && tags.length}`}</p>
           <div className={`flex flex-row justify-between border-b-[1px] ${isFocused ? 'border-[#343995]' : 'border-gray-400'}`}>
-            <div className='flex flex-row'>
-              {tags && tags.map((item, index) => (
-                <div key={index} className='bg-slate-200 px-2 h-10 w-full items-center flex justify-center m-2 mr-0 rounded-[3px]'>
+            <div className='flex flex-row w-full'>
+              { (position == 'in-line' && tags) && tags.map((item, index) => (
+                <div key={index} className='bg-slate-200 px-2 h-10  items-center flex justify-center m-2 mr-0 rounded-[3px]'>
                   <p className={`${text.body}`}>{item.name}</p>
                 </div>
               ))}
@@ -128,6 +130,16 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
               <MdOutlineAddCircleOutline />
             </button>
           </div>
+          {position == 'bottom' && (
+            <div className='flex flex-grow w-full grid grid-cols-2 gap-4 py-5'>
+              {tags && tags.map((item, index) => (
+                <div key={index} className='bg-slate-200 p-3 h-[50px] w-full items-center flex  mr-0 rounded-[3px]'>
+                  <p className={`${text.body} mr-2`}>{index+1}{'. '}</p>
+                  <p className={`${text.body}`}>{item.name}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -168,7 +180,7 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
             options={locations}
             className="text-sm border-b-[1px] border-gray-400 py-[3.5px]"
             styles={{
-              control: (baseStyles, state) => ({
+              control: (baseStyles) => ({
                 ...baseStyles,
                 minHeight: '30px',
                 height: '30px',
@@ -181,7 +193,7 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
                   backgroundColor: 'transparent',
                 },
               }),
-              placeholder: (baseStyles, state) => ({
+              placeholder: (baseStyles) => ({
                 ...baseStyles,
                 fontSize: 'text-sm',
               }),

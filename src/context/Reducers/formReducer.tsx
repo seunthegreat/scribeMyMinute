@@ -25,6 +25,7 @@ const formReducer: Reducer<formState, formAction> = (state, action) => {
       //console.log("name: ", action.payload.name, "value: ", action.payload.value);
       return { ...state, [action.payload.name]: action.payload.value };
     case 'UPDATE_FORM_TAG': 
+      console.log(action.payload.value)
       return { ...state, [action.payload.name]: action.payload.value};
     case 'UPDATE_FORM_SELECT': 
       return { ...state, [action.payload.name]: action.payload.value}
