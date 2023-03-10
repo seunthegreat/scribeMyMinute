@@ -13,7 +13,7 @@ interface Styling {
 }
 
 export const layout: Styling['layout'] = {
-  sectionItems: "grid md:grid-cols-2 sm:grid-cols-1 w-full",
+  sectionItems: "grid md:grid-cols-2 md:flex sm:flex-row-reverse w-full",
 }
   
 export const text: Styling['Text'] = {

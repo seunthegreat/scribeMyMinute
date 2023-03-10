@@ -17,7 +17,7 @@ const Info = (): JSX.Element => {
           loop={true}
           controls={true}
           src={"https://assets9.lottiefiles.com/packages/lf20_re3xr9zy.json"}
-          className="w-[70%] h-[80%] object-contain hidden sm:block"
+          className="w-[70%] h-[80%] object-contain hidden md:block"
         />
     </div>
   );

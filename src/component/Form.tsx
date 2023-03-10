@@ -110,7 +110,8 @@ const Form: React.FC = (): JSX.Element => {
   }
  
   return (
-    <div className="sm:p-10 p-5 border m-5 rounded-[5px] flex flex-col justify-between ">
+    <div className='flex flex-col h-full w-full p-5'>
+      <div className="sm:p-10 p-5 border rounded-[5px] flex flex-col justify-between">
       <div className='grid gap-10'>
 
       <div className=''>
@@ -137,6 +138,7 @@ const Form: React.FC = (): JSX.Element => {
         </div>
       </div>
       <Button title={"Generate"}  onClick={handleGenerate}/>
+    </div>
     </div>
   );
 };

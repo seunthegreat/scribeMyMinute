@@ -19,7 +19,6 @@ const Demo =  (): JSX.Element  => {
     <div className='flex flex-col justify-center items-center w-full'>
       <Header appName={appName} monthAndYear={currentMonthAndYear}/>
       <div className={layout.sectionItems}>
-        <Form />
         {loading && <div className='flex flex-col justify-center items-center'>
           <Player
             autoplay={true}
@@ -37,6 +36,7 @@ const Demo =  (): JSX.Element  => {
             data={generatedResult !== null && generatedResult.response}
           />
         )}
+        <Form />
       </div>
       <Footer owner={owner} />
     </div>
