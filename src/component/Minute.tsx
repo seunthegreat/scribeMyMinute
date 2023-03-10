@@ -57,20 +57,20 @@ const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result, data }) =
       <div className='flex flex-col bg-slate-100 p-5 rounded-[5px]'>
         <div className='flex flex-row items-center justify-between'>
           <div className='flex flex-col'>
-            <p className='text-subHeading mb-2'>{data.title}</p>
+            <p className='text-subHeading mb-2 font-semibold'>{data.title}</p>
             <div className='flex flex-row mb-5 items-center'>
               <p className='text-body mr-3'>Minute</p>
-              <button className='hover:scale-105 flex flex-row border p-2 rounded-[5px] mr-2'>
+              <button className='hover:scale-105 flex flex-row border h-10 justify-center items-center px-2 rounded-[5px] mr-2'>
                 <AiOutlineShareAlt style={{ color: 'gray' }} />
                 <p className='text-body ml-2'>Share</p>
               </button>
-              <button className='hover:scale-105 flex flex-row border p-2 rounded-[5px] mr-2'>
+              <button className='hover:scale-105 flex flex-row border  h-10 justify-center items-center px-2  rounded-[5px] mr-2'>
                 <TfiReload style={{ color: 'gray' }} />
                 <p className='text-body ml-2'>Regenerate</p>
               </button>
               <button
                 onClick={onCreateNew}
-                className='hover:scale-105 flex flex-row border p-2 rounded-[5px]'
+                className='hover:scale-105 flex flex-row border  h-10 justify-center items-center px-2  rounded-[5px]'
               >
                 <MdOutlineAdd style={{ color: 'gray' }} />
                 <p className='text-body ml-2'>Create New</p>

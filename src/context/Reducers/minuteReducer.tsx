@@ -49,31 +49,14 @@ interface MinuteAction {
 }
 
 const minuteReducer: Reducer<MinuteStateType, MinuteAction> = (state, action) => {
+
   switch (action.type) {
     case 'GENERATE_MINUTE':
       return { ...state, loading: true };
     case 'GENERATE_MINUTE_SUCCESS':
-      const requestBody = action.payload.form;
-      // Api call
-      const generatedResult = async (): Promise<any> => {
-        try {
-          // const response = await fetch('https://minute-scribe-be.onrender.com/generate-minute', {
-          //   method: 'POST',
-          //   body: JSON.stringify(requestBody),
-          //   headers: {
-          //     'Content-Type': 'application/json'
-          //   }
-          // });
-          // const responseData = await response.json();   
-           let responseData = mockResult;
-          return responseData
-        } catch (error) {
-          console.error(error);
-          return { ...state, loading: false };
-        }
-      };
-      
-      return { ...state, showMinute: true, generatedResult: mockResult, loading: false };
+      const generatedResult = action.payload.form;
+      console.log({ ...state, loading: false, showMinute: true, generatedResult: generatedResult })
+      return { ...state, loading: false, showMinute: true, generatedResult: generatedResult };
     case 'CREATE_NEW_MINUTE':
       return { ...state, showMinute: false };
     default:
