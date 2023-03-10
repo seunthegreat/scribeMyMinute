@@ -53,7 +53,7 @@ interface keyResultType {
 const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result, data }) => {
 
   return (
-    <div className='p-5'>
+    <div className='flex flex-col h-full w-full p-5'>
       <div className='flex flex-col bg-slate-100 p-5 rounded-[5px]'>
         <div className='flex flex-row items-center justify-between'>
           <div className='flex flex-col'>

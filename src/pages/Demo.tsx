@@ -19,7 +19,7 @@ const Demo =  (): JSX.Element  => {
     <div className='flex flex-col justify-center items-center w-full'>
       <Header appName={appName} monthAndYear={currentMonthAndYear}/>
       <div className={layout.sectionItems}>
-        {loading && <div className='flex flex-col justify-center items-center'>
+        {loading && <div className='flex flex-col justify-center items-center w-full'>
           <Player
             autoplay={true}
             loop={true}
