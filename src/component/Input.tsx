@@ -111,7 +111,7 @@ const Input: React.FC<InputProps> = ({ label, value, onChange, onChangeDate, dat
           <div className={`flex flex-row justify-between border-b-[1px] ${isFocused ? 'border-[#343995]' : 'border-gray-400'}`}>
             <div className='flex flex-row w-full'>
               { (position == 'in-line' && tags) && tags.map((item, index) => (
-                <div key={index} className='bg-slate-200 px-2 h-10  items-center flex justify-center m-2 mr-0 rounded-[3px]'>
+                <div key={index} className='bg-slate-200 px-2 h-10 items-center flex justify-center m-2 mr-0 rounded-[3px]'>
                   <p className={`${text.body}`}>{item.name}</p>
                 </div>
               ))}

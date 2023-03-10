@@ -129,7 +129,7 @@ const Form: React.FC = (): JSX.Element => {
         </div>
 
         <div className=''>
-          <Input label="Summary" type={'text-area'} sx={`h-20`} name="summary" onChange={handleInputChange}/>
+          <Input label="Discussion" type={'text-area'} sx={`h-20`} name="summary" onChange={handleInputChange}/>
         </div>
 
         <div className=''>

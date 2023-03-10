@@ -18,7 +18,7 @@ export interface AppProps extends MinuteProps {
 
 export const contents: InfoProps = {
   info: {
-    headline: 'ScribeMyMinute',
+    headline: '',
     body: `Fill in simple details and get a professional minute in less than a minute. Now you can save time, 
       streamline your workflow, and get more out of your meetings. Say goodbye to tedious manual minutes and 
       hello to effortless, productive meetings.`
@@ -100,5 +100,6 @@ export const appConstants: AppProps = {
       title: "",
       body: ""
     }
-  }
+  },
+  data: undefined
 }
