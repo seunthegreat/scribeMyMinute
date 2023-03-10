@@ -73,7 +73,7 @@ const minuteReducer: Reducer<MinuteStateType, MinuteAction> = (state, action) =>
         }
       };
       
-      return { ...state, showMinute: true, generatedResult: mockResult };
+      return { ...state, showMinute: true, generatedResult: mockResult, loading: false };
     case 'CREATE_NEW_MINUTE':
       return { ...state, showMinute: false };
     default:
