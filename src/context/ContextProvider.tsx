@@ -15,7 +15,7 @@ export interface tagInput {
 
 export type FormType = {
   agenda?: string | '';
-  date?: Date | '';
+  date?: Date | any;
   location?: string | '';
   attendees?: any[];
   summary?: string;
@@ -42,7 +42,7 @@ export const initialState: State = {
   },
   form: {
     agenda: '',
-    date: '',
+    date: new Date,
     location: '',
     attendees: [],
     summary: '',

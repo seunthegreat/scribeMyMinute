@@ -83,24 +83,41 @@ const Form: React.FC = (): JSX.Element => {
            {"id": 4, "name": "The commitment contract will be made available before month end"}
        ]
     };
-    //generateMinute(getUserInputs())
-    //generateMinute(mock)
-    setLoading();
 
-    const generatedResult = mockResult;
-    generateMinuteSuccess(generatedResult);
+    const form = getUserInputs();   
     
+    // console.log(form, mock)
+    setLoading(); //--> update minute state | loading: true
+    try {
+      //--Fetch--//
+      const response = await fetch('https://minute-scribe-be.onrender.com/generate-minute', {
+        method: 'POST',
+        body: JSON.stringify(form),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      // process the response as needed
+      const responseData = await response.json();   
+      console.log(responseData)
+      //const generatedResult = mockResult;
+      generateMinuteSuccess(responseData);
+  
+    }catch (error) {
+      // handle any errors that might occur during the API call
+      console.error(error);
+    }
   }
  
   return (
     <div className="sm:p-10 p-5 border m-5 rounded-[5px] flex flex-col justify-between ">
       <div className='grid gap-10'>
 
-      <div className='grid sm:grid-cols-3 grid-cols-1'>
+      <div className=''>
           <div className='col-span-2'>
             <Input label={"Agenda"} name="agenda" onChange={handleInputChange}/>
           </div>
-          <Input label={"Date"} type={'date-picker'} dateValue={date} onChangeDate={(newDate) => setDate(newDate)}/>
+          {/* <Input label={"Date"} type={'date-picker'} dateValue={date} onChangeDate={(newDate) => setDate(newDate)}/> */}
         </div>
 
       <div className='grid sm:grid-cols-3 grid-cols-1 gap-10 sm:gap-4 items-end'>

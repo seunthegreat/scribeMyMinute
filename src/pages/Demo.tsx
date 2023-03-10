@@ -13,7 +13,7 @@ const Demo =  (): JSX.Element  => {
   const {owner, appName} = appInfo;
   const { showMinute, createNewMinute,loading, generatedResult } = minute;
   
-  console.log(generatedResult !== null && generatedResult.response);
+  //console.log(generatedResult !== null && generatedResult.response);
 
   return (
     <div className='flex flex-col justify-center items-center w-full'>

@@ -78,7 +78,6 @@ const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result, data }) =
             </div>
           </div>
         </div>
-        <Note title={'Summary'} body={data.summary} />
         <Note title={'Purpose'} body={data.purpose} />
         <div className='mb-4'>
           <p className='text-normal mb-1'>{result.keyTopics.title}</p>
@@ -97,6 +96,7 @@ const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result, data }) =
             </p>
           ))}
         </div>
+        <Note title={'Summary'} body={data.summary} />
       </div>
     </div>
   );
