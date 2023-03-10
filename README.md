@@ -3,8 +3,8 @@ MinuteScribe is a MERN stack-based Meeting Minutes Generator that automates the 
 
 # Features
 - Easy to input meeting details such as date, time, attendees, agenda, action items, and decisions made during the meeting.
-- Generates professional-looking meeting minutes in PDF or HTML format.
-- Users can easily share, save, and print the generated minutes for future reference.
+- Generates professional-looking meeting minutes with GPT-3.
+- Users can easily share the generated minutes for personal use.
 - User-friendly interface built with React for a smooth and responsive experience.
 - Backend built with Node.js and Express.js, providing a scalable and robust server-side solution.
 - Data stored in MongoDB, providing a flexible and scalable database solution.
