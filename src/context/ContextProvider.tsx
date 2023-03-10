@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer } from 'react';
 import { formReducer, minuteReducer } from './Reducers';
 import { LocationType } from '../component/Input';
 import { Tag } from '../component/Input';
+import { MinuteStateType } from './Reducers/minuteReducer';
 
 export interface Props {
   children: React.ReactNode;
@@ -24,9 +25,7 @@ export type FormType = {
 
 //--Application State type definition--//
 export type State = {
-  minute: {
-    showMinute: boolean;
-  };
+  minute: MinuteStateType,
   form: FormType;
   appInfo: {
     appName: string;
@@ -38,6 +37,8 @@ export type State = {
 export const initialState: State = {
   minute: {
     showMinute: false,
+    loading: false,
+    generatedResult: []
   },
   form: {
     agenda: '',
@@ -57,7 +58,10 @@ export const initialState: State = {
 export type StateContextValue = {
   minute: {
     showMinute: boolean;
-    generateMinute: (form: FormType) => void;
+    loading: boolean;
+    setLoading: () => void;
+    generateMinuteSuccess: (form: FormType) => void;
+    generatedResult: any;
     createNewMinute: () => void;
   };
   appInfo: {
@@ -74,14 +78,16 @@ export type StateContextValue = {
 };
 
 
-
-
 export const StateContext = createContext<StateContextValue | undefined>(undefined);
 
 export const StateProvider: React.FC<Props> = ({ children }) => {
   //--------------------------------Minute State + Dispatch----------------------------------------//
   const [minuteState, dispatchMinute] = useReducer(minuteReducer, initialState.minute); 
-  const generateMinute = (form: FormType) => dispatchMinute({ type: 'GENERATE_MINUTE', payload: {form} });
+  const setLoading = (): void  => dispatchMinute({ type: 'GENERATE_MINUTE'});
+  const generateMinuteSuccess = (form: FormType) => {
+    dispatchMinute({ type: 'GENERATE_MINUTE_SUCCESS', payload: {form} });
+    return minuteState
+  };
   const createNewMinute = (): void => dispatchMinute({type: 'CREATE_NEW_MINUTE'});
   //-----------------------------------------Ends--------------------------------------------------//
 
@@ -108,7 +114,8 @@ export const StateProvider: React.FC<Props> = ({ children }) => {
       value={{
         //--Minute State--//
         minute: {
-          showMinute: minuteState.showMinute, generateMinute, createNewMinute
+          showMinute: minuteState.showMinute, generateMinuteSuccess, 
+          createNewMinute, loading: minuteState.loading, setLoading, generatedResult: minuteState.generatedResult
         },
         //--App Information--//
         appInfo: {

@@ -3,9 +3,11 @@ import { AiOutlineShareAlt } from 'react-icons/ai';
 import { MdOutlineAdd } from 'react-icons/md';
 import { TfiReload } from 'react-icons/tfi';
 import { Note } from '.';
+import { text } from '../style';
 
 export interface MinuteProps {
   onCreateNew?: () => void;
+  data: any;
   result: {
     title: string;
     summary: {
@@ -38,13 +40,24 @@ export interface MinuteProps {
   };
 };
 
-const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result }) => {
+interface KeyTopicsType {
+  id: string;
+  topic: string
+}
+
+interface keyResultType {
+  id: string;
+  result: string;
+}
+
+const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result, data }) => {
+
   return (
     <div className='p-5'>
       <div className='flex flex-col bg-slate-100 p-5 rounded-[5px]'>
         <div className='flex flex-row items-center justify-between'>
           <div className='flex flex-col'>
-            <p className='text-subHeading mb-2'>{result.title}</p>
+            <p className='text-subHeading mb-2'>{data.title}</p>
             <div className='flex flex-row mb-5 items-center'>
               <p className='text-body mr-3'>Minute</p>
               <button className='hover:scale-105 flex flex-row border p-2 rounded-[5px] mr-2'>
@@ -65,19 +78,25 @@ const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result }) => {
             </div>
           </div>
         </div>
-        <Note title={result.summary.title} body={result.summary.body} />
-        <Note title={result.purpose.title} body={result.purpose.body} />
+        <Note title={'Summary'} body={data.summary} />
+        <Note title={'Purpose'} body={data.purpose} />
         <div className='mb-4'>
           <p className='text-normal mb-1'>{result.keyTopics.title}</p>
-          {result.keyTopics.topics.map((item, index) => (
-            <p key={index} className='text-body ml-2'>
-              {index + 1}. {item.topics}
+          {data.keyTopics.map((item: KeyTopicsType, index: number) => (
+            <p key={index} className={`${text.body} mb-1 ml-2`}>
+              {item.topic}
             </p>
           ))}
         </div>
-        <Note title={result.decisionMade.title} body={result.decisionMade.body} />
-        <Note title={result.actionItems.title} body={result.actionItems.body} />
-        <Note title={result.nextSteps.title} body={result.nextSteps.body} />
+        <Note title={'Objective'} body={data.objective} />
+        <div className='mb-4'>
+          <p className='text-normal mb-1'>{'Key Results'}</p>
+          {data.keyResults.map((item: keyResultType, index: number) => (
+            <p key={index} className={`${text.body} mb-1 ml-2`}>
+              {item.result}
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );

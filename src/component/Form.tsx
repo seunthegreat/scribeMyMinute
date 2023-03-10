@@ -7,7 +7,7 @@ import { LocationType } from './Input';
 const Form: React.FC = (): JSX.Element => {
   const { minute, form } = useStateContext();
   const { attendees, actions, decisionsMade } = form.inputs;
-  const { generateMinute } = minute;
+  const { setLoading, generateMinuteSuccess } = minute;
   const { getUserInputs, updateInput, updateSelect, updateTag} = form;
 
   const [date, setDate] = useState(new Date());
@@ -28,9 +28,28 @@ const Form: React.FC = (): JSX.Element => {
   }
   //console.log(getUserInputs());
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
 
-    generateMinute(getUserInputs())
+    const mock: object = {
+      agenda: "Decide on how much to invest in Forex",
+      date: "22/03/2022",
+      location: "Zoom",
+      attendees: [
+          {"id": 1, "name": "Omolola"},
+          {"id": 1, "name": "Seun"}
+      ],
+       summary: "Lola agreed to become my accountability partner, and a commitment contract will be created. This contract will enforce accountability measures, and if I fail violate my terms, she is entitled to earn from my stake.",
+       decisionMade: [
+           {"id": 1, "name": "Lola agrees to the challenge"},
+           {"id": 2, "name": "The Sum of 200,000 naira will be invested in the trading business"},
+           {"id": 3, "name": "The sum of 20,000 naira will be paid to Lola as a caution fee"},
+           {"id": 4, "name": "The commitment contract will be made available before month end"}
+       ]
+    };
+    //generateMinute(getUserInputs())
+    //generateMinute(mock)
+    setLoading();
+    await generateMinuteSuccess(mock);
   }
  
   return (

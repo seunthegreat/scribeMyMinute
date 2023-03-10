@@ -10,8 +10,9 @@ const Demo =  (): JSX.Element  => {
   const { appInfo, minute } = useStateContext();
 
   const {owner, appName} = appInfo;
-  const { showMinute, createNewMinute } = minute;
-
+  const { showMinute, createNewMinute,loading, generatedResult } = minute;
+  
+  console.log(generatedResult !== null && generatedResult.response);
   return (
     <div className='flex flex-col justify-center items-center w-full'>
       <Header appName={appName} monthAndYear={currentMonthAndYear}/>
@@ -21,9 +22,11 @@ const Demo =  (): JSX.Element  => {
           <Info /> :
           <Minute
             result={mock.minuteResult}
-            onCreateNew={createNewMinute} 
+            onCreateNew={createNewMinute}
+            data={generatedResult !== null && generatedResult.response}
           />
         }
+        <div>{!loading ? 'Not loading': 'loading'}</div>
       </div>
       <Footer owner={owner} />
     </div>
