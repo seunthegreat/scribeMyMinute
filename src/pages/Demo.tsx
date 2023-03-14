@@ -13,7 +13,7 @@ const Demo =  (): JSX.Element  => {
   const {owner, appName} = appInfo;
   const { showMinute, createNewMinute,loading, generatedResult } = minute;
   
-  //console.log(generatedResult !== null && generatedResult.response);
+  console.log(generatedResult !== null && generatedResult);
 
   return (
     <div className='flex flex-col justify-center items-center w-full'>
@@ -31,9 +31,8 @@ const Demo =  (): JSX.Element  => {
         {!showMinute && !loading && <Info />}
         {showMinute && !loading && (
            <Minute
-            result={mock.minuteResult}
             onCreateNew={createNewMinute}
-            data={generatedResult !== null && generatedResult.response}
+            result={generatedResult !== null && generatedResult}
           />
         )}
         <Form />

@@ -84,13 +84,40 @@ const Form: React.FC = (): JSX.Element => {
        ]
     };
 
+    const mockResponse: object = {
+      "success": true,
+      "data": {
+        "id": "5xme6yjcp",
+        "title": "Decide on how much to invest in Forex",
+        "minute": "A meeting was held on Zoom on 22/03/2022 to discuss the investment of funds in Forex. The meeting was attended by Omolola and Seun. The agenda was to decide on how much to invest in Forex. After deliberations, it was agreed that the sum of 200,000 naira will be invested in the trading business, and the sum of 20,000 naira will be paid to Lola as a caution fee. \n\nFurthermore, Lola agreed to become Seun's accountability partner, and a commitment contract will be created to enforce accountability measures. If Seun violates the terms of the contract, Lola is entitled to earn from his stake. The commitment contract will be made available before the end of the month. Seun welcomed the challenge, and the attendees agreed to keep in touch to ensure the investment is yielding good returns.\n\nIn conclusion, the meeting was successful, and the major decisions made included investing 200,000 naira in Forex, paying a caution fee of 20,000 naira to Lola, creating a commitment contract for accountability measures, and appointing Lola as Seun's accountability partner. The attendees agreed to keep in touch to monitor the progress of the investment.",
+        "objective": "Create a plan to invest in Forex by providing Lola with a caution fee of 20,000 naira and investing a total sum of 200,000 naira in the trading business, and ensuring that the commitment contract is completed and delivered before the end of the month.",
+        "keyResults": [
+          {
+            "id": "4ohrtigbf",
+            "result": "1. Investment plan with clearly defined goals and strategies for the Forex trading business."
+          },
+          {
+            "id": "r8ljwk7ue",
+            "result": "2. Successful completion and delivery of the commitment contract to ensure accountability and transparency."
+          },
+          {
+            "id": "5qhnl7rex",
+            "result": "3. Achieving desired returns on the invested sum of 200,000 naira in the Forex trading business."
+          },
+          {
+            "id": "omdowhe8m",
+            "result": "4. Mitigating risks and minimizing losses by adhering to sound investment guidelines and market analysis."
+          }
+        ]
+      }
+    };
+
     const form = getUserInputs();   
-    
-    // console.log(form, mock)
+
     setLoading(); //--> update minute state | loading: true
     try {
       //--Fetch--//
-      const response = await fetch('https://minute-scribe-be.onrender.com/generate-minute', {
+      const response = await fetch('http://localhost:3030/generate-minute', {
         method: 'POST',
         body: JSON.stringify(form),
         headers: {
@@ -100,7 +127,7 @@ const Form: React.FC = (): JSX.Element => {
       // process the response as needed
       const responseData = await response.json();   
       console.log(responseData)
-      //const generatedResult = mockResult;
+      
       generateMinuteSuccess(responseData);
   
     }catch (error) {

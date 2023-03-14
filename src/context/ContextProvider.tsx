@@ -51,7 +51,7 @@ export const initialState: State = {
   },
   appInfo: {
     appName: 'Minute Scribe',
-    owner: 'Owner',
+    owner: 'Seun Abilawon',
   },
 };
 
