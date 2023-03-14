@@ -43,16 +43,13 @@ const mockResult: object = {
 
 const Form: React.FC = (): JSX.Element => {
   const { minute, form } = useStateContext();
-  const { attendees, actions, decisionsMade } = form.inputs;
+  const { attendees, decisionsMade, agenda, summary } = form.inputs;
   const { setLoading, generateMinuteSuccess } = minute;
   const { getUserInputs, updateInput, updateSelect, updateTag} = form;
 
   const [date, setDate] = useState(new Date());
   const [location, setLocation] = useState<string | undefined>('');
 
-  useEffect(() => {
-   // console.log(getUserInputs)
-  },[])
 
   const handleInputChange = (e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -143,9 +140,8 @@ const Form: React.FC = (): JSX.Element => {
 
       <div className=''>
           <div className='col-span-2'>
-            <Input label={"Agenda"} name="agenda" onChange={handleInputChange}/>
+            <Input label={"Agenda"} name="agenda" value={agenda} onChange={handleInputChange}/>
           </div>
-          {/* <Input label={"Date"} type={'date-picker'} dateValue={date} onChangeDate={(newDate) => setDate(newDate)}/> */}
         </div>
 
       <div className='grid sm:grid-cols-3 grid-cols-1 gap-10 sm:gap-4 items-end'>
@@ -157,7 +153,7 @@ const Form: React.FC = (): JSX.Element => {
         </div>
 
         <div className=''>
-          <Input label="Discussion" type={'text-area'} sx={`h-20`} name="summary" onChange={handleInputChange}/>
+          <Input label="Discussion" type={'text-area'} sx={`h-20`} name="summary" value={summary} onChange={handleInputChange}/>
         </div>
 
         <div className=''>

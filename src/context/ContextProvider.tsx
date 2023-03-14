@@ -23,6 +23,20 @@ export type FormType = {
   actions?: any[];
 };
 
+export type GeneratedMinute =  {
+  success: boolean,
+  data: {
+    id: string,
+    title: string,
+    minute: string,
+    objective: string,
+    keyResults: {
+      id: string,
+      result: string,
+    }[]
+  }
+};
+
 //--Application State type definition--//
 export type State = {
   minute: MinuteStateType,
@@ -55,13 +69,14 @@ export const initialState: State = {
   },
 };
 
+
 export type StateContextValue = {
   minute: {
     showMinute: boolean;
     loading: boolean;
     setLoading: () => void;
     generateMinuteSuccess: (form: FormType) => void;
-    generatedResult: any;
+    generatedResult: GeneratedMinute | [];
     createNewMinute: () => void;
   };
   appInfo: {
@@ -74,6 +89,7 @@ export type StateContextValue = {
     updateInput: (name: keyof FormType, value: any) => void;
     updateSelect: (name: keyof FormType, value: any) => void;
     updateTag: (name: keyof FormType | undefined, value: tagInput[]) => void;
+    resetForm: () => void;
   };
 };
 
@@ -103,9 +119,12 @@ export const StateProvider: React.FC<Props> = ({ children }) => {
   };
   const updateSelect = (name: keyof FormType, value: string) => {
     dispatchForm({ type: 'UPDATE_FORM_SELECT', payload: {name, value}})
-  }
+  };
   const updateTag = (name: keyof FormType | undefined, value: tagInput[]) => {
     dispatchForm({ type: 'UPDATE_FORM_TAG', payload: {name, value}})
+  };
+  const resetForm = (): void => {
+    dispatchForm({type: 'RESET_FORM'})
   }
   //-----------------------------------------Ends--------------------------------------------------//
   
@@ -137,6 +156,7 @@ export const StateProvider: React.FC<Props> = ({ children }) => {
           updateInput,
           updateSelect,
           updateTag,
+          resetForm,
         }
       }}
     >

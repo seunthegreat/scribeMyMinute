@@ -4,21 +4,20 @@ import { MdOutlineAdd } from 'react-icons/md';
 import { TfiReload } from 'react-icons/tfi';
 import { Note } from '.';
 import { text } from '../style';
-import { GeneratedMinute } from '../context/ContextProvider';
+import { useStateContext } from '../context/ContextProvider';
 
 export interface MinuteProps {
   onCreateNew?: () => void;
+  onReset: () => void;
   result: any;
 };
-
-
 
 interface keyResultType {
   id: string;
   result: string;
 }
 
-const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result }) => {
+const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result, onReset }) => {
   const {title, minute, keyResults, objective } = result.data;
   return (
     <div className='flex flex-col h-full w-full p-5'>
@@ -32,9 +31,11 @@ const Minute: FunctionComponent<MinuteProps> = ({ onCreateNew, result }) => {
                 <AiOutlineShareAlt style={{ color: 'gray' }} />
                 <p className={`${text.body} ml-2`}>Share</p>
               </button>
-              <button className='hover:scale-105 flex flex-row border  h-8 justify-center items-center px-2  rounded-[5px] mr-2'>
+              <button
+                onClick={onReset} 
+                className='hover:scale-105 flex flex-row border  h-8 justify-center items-center px-2  rounded-[5px] mr-2'>
                 <TfiReload style={{ color: 'gray' }} />
-                <p className={`${text.body} ml-2`}>Regenerate</p>
+                <p className={`${text.body} ml-2`}>Reset</p>
               </button>
               <button
                 onClick={onCreateNew}

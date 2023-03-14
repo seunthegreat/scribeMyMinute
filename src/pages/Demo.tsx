@@ -8,13 +8,12 @@ import { Player } from '@lottiefiles/react-lottie-player';
 const {currentMonthAndYear,  mock} = appConstants; //-->Constants
 
 const Demo =  (): JSX.Element  => {
-  const { appInfo, minute } = useStateContext();
+  const { appInfo, minute, form } = useStateContext();
 
   const {owner, appName} = appInfo;
   const { showMinute, createNewMinute,loading, generatedResult } = minute;
+  const { resetForm } = form;
   
-  console.log(generatedResult !== null && generatedResult);
-
   return (
     <div className='flex flex-col justify-center items-center w-full'>
       <Header appName={appName} monthAndYear={currentMonthAndYear}/>
@@ -31,6 +30,7 @@ const Demo =  (): JSX.Element  => {
         {!showMinute && !loading && <Info />}
         {showMinute && !loading && (
            <Minute
+            onReset={resetForm}
             onCreateNew={createNewMinute}
             result={generatedResult !== null && generatedResult}
           />
